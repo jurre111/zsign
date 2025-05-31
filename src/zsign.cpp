@@ -280,38 +280,38 @@ int main(int argc, char* argv[])
 	atimer.PrintResult(bRet, ">>> Signed %s!", bRet ? "OK" : "Failed");
 
 	//archive
-	if (bRet && !strOutputFile.empty()) {
-		size_t pos = bundle.m_strAppFolder.rfind("Payload");
-		if (string::npos != pos && pos > 0) {
-			atimer.Reset();
-			ZLog::PrintV(">>> Archiving: \t%s ... \n", strOutputFile.c_str());
-			string strBaseFolder = bundle.m_strAppFolder.substr(0, pos - 1);
-			if (!Zip::Archive(strBaseFolder.c_str(), strOutputFile.c_str(), uZipLevel)) {
-				ZLog::Error(">>> Archive failed!\n");
-				bRet = false;
-			} else {
-				atimer.PrintResult(true, ">>> Archive OK! (%s)", ZFile::GetFileSizeString(strOutputFile.c_str()).c_str());
-			}
-		} else {
-			ZLog::Error(">>> Can't find payload directory!\n");
-			bRet = false;
-		}
-	}
-
-	//install
-	if (bRet && bInstall) {
-		bRet = ZUtil::SystemExecV("ideviceinstaller -i  \"%s\"", strOutputFile.c_str());
-	}
-
-	//clean
-	if (bTempFolder) {
-		ZFile::RemoveFolder(strFolder.c_str());
-	}
-
-	if (bTempOutputFile) {
-		ZFile::RemoveFile(strOutputFile.c_str());
-	}
-
-	gtimer.Print(">>> Done.");
-	return bRet ? 0 : -1;
+//	if (bRet && !strOutputFile.empty()) {
+//		size_t pos = bundle.m_strAppFolder.rfind("Payload");
+//		if (string::npos != pos && pos > 0) {
+//			atimer.Reset();
+//			ZLog::PrintV(">>> Archiving: \t%s ... \n", strOutputFile.c_str());
+//			string strBaseFolder = bundle.m_strAppFolder.substr(0, pos - 1);
+//			if (!Zip::Archive(strBaseFolder.c_str(), strOutputFile.c_str(), uZipLevel)) {
+//				ZLog::Error(">>> Archive failed!\n");
+//				bRet = false;
+//			} else {
+//				atimer.PrintResult(true, ">>> Archive OK! (%s)", ZFile::GetFileSizeString(strOutputFile.c_str()).c_str());
+//			}
+//		} else {
+//			ZLog::Error(">>> Can't find payload directory!\n");
+//			bRet = false;
+//		}
+//	}
+//
+//	//install
+//	if (bRet && bInstall) {
+//		bRet = ZUtil::SystemExecV("ideviceinstaller -i  \"%s\"", strOutputFile.c_str());
+//	}
+//
+//	//clean
+//	if (bTempFolder) {
+//		ZFile::RemoveFolder(strFolder.c_str());
+//	}
+//
+//	if (bTempOutputFile) {
+//		ZFile::RemoveFile(strOutputFile.c_str());
+//	}
+//
+//	gtimer.Print(">>> Done.");
+//	return bRet ? 0 : -1;
 }
